@@ -2,21 +2,22 @@ version: "3.5"
 
 services:
 
-  app:
+  demo-app:
     container_name: demo-app
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://demo-db:5432/demo
+      - SPRING_DATASOURCE_USERNAME=demo
+      - SPRING_DATASOURCE_PASSWORD=demo
     image: demo-app:latest
     depends_on:
-      - db
+      - demo-db
+      - demo-rabbitmq
     ports:
       - "8081:8081"
-    networks:
-      - default
 
-
-  db:
+  demo-db:
     container_name: demo-db
     image: postgres:11-alpine
     restart: always
@@ -27,14 +28,11 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - "5430:5432"
-    expose:
-      - "5430"
-    networks:
-      - default
 
-networks:
-  default:
-    driver: bridge
-
-
-
+  demo-rabbitmq:
+    container_name: demo-rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"

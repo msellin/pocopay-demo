@@ -1,3 +1,4 @@
 #!/bin/bash
-docker rm -f demo-db
-docker-compose -f database.yml up -d
+docker-compose down
+./gradlew clean build -x test
+docker-compose up -d
