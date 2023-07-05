@@ -1,7 +1,7 @@
 package ee.pocopay.demo.account;
 
-import ee.pocopay.demo.config.MdcUtil;
 import ee.pocopay.demo.account.model.Account;
+import ee.pocopay.demo.config.MdcUtil;
 import ee.pocopay.demo.config.PocopayException;
 import ee.pocopay.demo.transaction.model.Transaction;
 import org.springframework.http.HttpStatus;
@@ -41,7 +41,7 @@ public class AccountService {
             throw new PocopayException("Credit account not found", HttpStatus.NOT_FOUND);
         }
         if(creditAccount.getBalance().compareTo(transaction.getAmount()) < 0) {
-            throw new PocopayException("Credit account balance is too low", HttpStatus.FORBIDDEN);
+            throw new PocopayException("Credit account balance is too low");
         }
 
         var debitAccount = accountRepository.findById(transaction.getDebitAccountId()).orElse(null);

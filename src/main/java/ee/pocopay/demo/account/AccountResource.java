@@ -1,8 +1,6 @@
 package ee.pocopay.demo.account;
 
 import ee.pocopay.demo.account.model.Account;
-import ee.pocopay.demo.transaction.TransactionService;
-import ee.pocopay.demo.transaction.model.Transaction;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
