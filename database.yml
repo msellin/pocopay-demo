@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+  db:
+    container_name: demo-db
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5430:5432"

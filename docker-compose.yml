@@ -1,0 +1,40 @@
+version: "3.5"
+
+services:
+
+  app:
+    container_name: demo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo-app:latest
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    networks:
+      - default
+
+
+  db:
+    container_name: demo-db
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=demo
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5430:5432"
+    expose:
+      - "5430"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+
+
+
