@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Transaction {
+public class Transaction implements Serializable {
     @Id
     private Long id;
     private Long debitAccountId;

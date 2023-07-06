@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   test-db:
-    container_name: test-db
+    container_name: demo-db
     image: postgres:11-alpine
     restart: always
     environment:
@@ -11,4 +11,4 @@ services:
       - POSTGRES_DB=demo
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - "5429:5432"
+      - "5430:5432"

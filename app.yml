@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  demo-app:
+    container_name: demo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://demo-db:5432/demo
+      - SPRING_DATASOURCE_USERNAME=demo
+      - SPRING_DATASOURCE_PASSWORD=demo
+      - SPRING_RABBITMQ_HOST=demo-rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+      - "8081:8081"

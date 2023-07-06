@@ -7,11 +7,10 @@
     * etc
 * Installation
     * Clone the repo
-    * ./run.sh (builds and runs the app)
-    * docker-compose down (stops docker containers)
+    * ./gradlew clean build
+    * docker-compose up (or ./run.sh)
+    * docker-compose down
 
 ## Notes
-
-* tests have separate postgresql container
-* rabbitmq not implemented atm
-* business logic implementation is as basic as it gets for now
+* added rabbitmq just to demonstrate messages being sent and received (not using it for crediting though)
+* tests expect db and rabbitmq to be running (docker-compose -f db.yml -f rabbitmq.yml up)

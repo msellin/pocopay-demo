@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+
+  demo-rabbitmq:
+    container_name: demo-rabbitmq
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"

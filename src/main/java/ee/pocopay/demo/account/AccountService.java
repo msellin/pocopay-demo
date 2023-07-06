@@ -50,20 +50,19 @@ public class AccountService {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void updateAccountBalances(Transaction transaction) {
+    public void updateDebitAccountBalance(Transaction transaction) {
         var debitAccount = accountRepository.findById(transaction.getDebitAccountId()).orElse(null);
+        var sessionId = MdcUtil.getSessionId();
+        debitAccount.setBalance(debitAccount.getBalance().add(transaction.getAmount()));
+        debitAccount.setModifiedSessionId(sessionId);
+        accountRepository.save(debitAccount);
+    }
+
+    public void updateCreditAccountBalance(Transaction transaction) {
         var creditAccount = accountRepository.findById(transaction.getCreditAccountId()).orElse(null);
-
-        if(debitAccount != null && creditAccount != null) {
-            var sessionId = MdcUtil.getSessionId();
-            debitAccount.setBalance(debitAccount.getBalance().add(transaction.getAmount()));
-            debitAccount.setModifiedSessionId(sessionId);
-            accountRepository.save(debitAccount);
-
-            creditAccount.setBalance(creditAccount.getBalance().subtract(transaction.getAmount()));
-            creditAccount.setModifiedSessionId(sessionId);
-            accountRepository.save(creditAccount);
-        }
+        var sessionId = MdcUtil.getSessionId();
+        creditAccount.setBalance(creditAccount.getBalance().subtract(transaction.getAmount()));
+        creditAccount.setModifiedSessionId(sessionId);
+        accountRepository.save(creditAccount);
     }
 }
